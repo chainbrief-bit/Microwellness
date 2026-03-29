@@ -17,13 +17,19 @@ exports.handler = async function(event, context) {
         messages: [{ role: 'user', content: prompt }]
       })
     });
-    const data = await response.json();
+    const text = await response.text();
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(data)
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: text
     };
   } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    return { 
+      statusCode: 500, 
+      body: JSON.stringify({ error: err.message }) 
+    };
   }
 };
